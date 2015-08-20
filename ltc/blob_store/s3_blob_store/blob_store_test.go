@@ -14,7 +14,7 @@ package s3_blob_store_test
 
 // 	"github.com/aws/aws-sdk-go/aws"
 // 	config_package "github.com/cloudfoundry-incubator/lattice/ltc/config"
-// 	"github.com/cloudfoundry-incubator/lattice/ltc/config/s3_blob_store"
+// 	"github.com/cloudfoundry-incubator/lattice/ltc/blob_store/s3_blob_store"
 // )
 
 // var _ = Describe("BlobStore", func() {
