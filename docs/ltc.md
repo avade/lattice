@@ -104,7 +104,7 @@ The set of routes passed into `ltc update-routes` will *override* the existing s
 
 **Note**: Buildpack support requires a Droplet Store, which is automatically configured when you run `ltc target`. You can validate that the Droplet store has been automatically detected by running `ltc target`. If Buildpack support is working correctly, you'll see two lines of output:
 
-- ```
+```
 Target:		    user@192.168.11.11.xip.io
 Droplet Store:	user@192.168.11.11.xip.io:8444
 ```
