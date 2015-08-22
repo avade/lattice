@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"time"
-
+    "strings"
 	"github.com/cloudfoundry-incubator/lattice/ltc/logs/reserved_app_ids"
 	"github.com/cloudfoundry-incubator/lattice/ltc/route_helpers"
 	"github.com/cloudfoundry-incubator/receptor"
@@ -286,6 +286,7 @@ func (appRunner *appRunner) desireLrp(params CreateAppParams) error {
 	envVars := buildEnvironmentVariables(params.EnvironmentVariables)
 	envVars = append(envVars, receptor.EnvironmentVariable{Name: "VCAP_APPLICATION", Value: string(vcapAppBytes)})
 	envVars = append(envVars, receptor.EnvironmentVariable{Name: "PORT", Value: fmt.Sprintf("%d", primaryPort)})
+	envVars = append(envVars, receptor.EnvironmentVariable{Name: "PORTS", Value: getExposedPortsEnv(params.ExposedPorts)})
 
 	req := receptor.DesiredLRPCreateRequest{
 		ProcessGuid:          params.Name,
@@ -334,6 +335,14 @@ func (appRunner *appRunner) desireLrp(params CreateAppParams) error {
 	}
 
 	return appRunner.receptorClient.CreateDesiredLRP(req)
+}
+
+func getExposedPortsEnv(ports []uint16) string {
+	portEnv := make([]string, len(ports))
+	for indx, port := range ports {
+		portEnv[indx] = fmt.Sprintf("%d", port)
+	}
+	return strings.Join(portEnv, ",")
 }
 
 func (appRunner *appRunner) updateLrpInstances(name string, instances int) error {

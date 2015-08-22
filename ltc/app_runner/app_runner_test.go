@@ -88,6 +88,7 @@ var _ = Describe("AppRunner", func() {
 					Value: `{"application_name":"americano-app","application_uris":["americano-app.myDiegoInstall.com","americano-app-2000.myDiegoInstall.com","americano-app-4000.myDiegoInstall.com"],"name":"americano-app","uris":["americano-app.myDiegoInstall.com","americano-app-2000.myDiegoInstall.com","americano-app-4000.myDiegoInstall.com"],"limits":{"disk":1024,"mem":128}}`,
 				},
 				receptor.EnvironmentVariable{Name: "PORT", Value: "2000"},
+				receptor.EnvironmentVariable{Name: "PORTS", Value: "2000,4000"},
 			))
 			Expect(req.Routes).To(Equal(route_helpers.AppRoutes{
 				route_helpers.AppRoute{Hostnames: []string{"americano-app.myDiegoInstall.com", "americano-app-2000.myDiegoInstall.com"}, Port: 2000},
